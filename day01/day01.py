@@ -15,11 +15,16 @@ def part2(mass):
 
 
 def solve():
-    sum = 0
+    part1_sum = 0
+    part2_sum = 0
+
     with open('input') as f: 
         for line in f: 
-            sum += part1(int(line))
-    print('Part 1: ' + sum)
+            num = int(line)
+            part1_sum += part1(num)
+            part2_sum += part2(num)
+    print('Part 1: ' + str(part1_sum))
+    print('Part 2: ' + str(part2_sum))
 
 
 if __name__ == '__main__':
