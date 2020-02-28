@@ -14,18 +14,16 @@ def part1(intcode):
     
     for index in range(0, len(intcode), 4):
         opcode = intcode[index]
-        if opcode == 1:
+        if opcode == 99:
+            break
+        else:
             a = intcode[index+1]
             b = intcode[index+2]
             c = intcode[index+3]
+        if opcode == 1:
             intcode[c] = intcode[a] + intcode[b]
         elif opcode == 2:
-            a = intcode[index+1] 
-            b = intcode[index+2]
-            c = intcode[index+3] 
             intcode[c] = intcode[a] * intcode[b]
-        elif opcode == 99:
-            break
     
     return intcode
 
