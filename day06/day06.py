@@ -33,9 +33,43 @@ def planet_orbit_dictionary(planet_list):
             orbits_dict[orb[1]] = orb[0]
     return orbits_dict
 
+def part2(list_of_orbits):
+    orbits_dict = planet_orbit_dictionary(list_of_orbits)
+    you_chain = orbiting_chain(orbits_dict, 'YOU')
+    san_chain = orbiting_chain(orbits_dict, 'SAN')
+    
+    count = 0
+    current_planet = ''
+    for planet in you_chain:
+        # print(planet)
+        if planet in san_chain:
+            current_planet = planet
+            # count += 1
+            break
+        else:
+            count += 1
+
+    # print('============================================')
+
+    index_current_planet = san_chain.index(current_planet)
+    count += index_current_planet
+    
+    return count
+
+
+def orbiting_chain(orbits_dictionary, planet):
+    chain = []
+    starting_planet = orbits_dictionary[planet]
+    while orbits_dictionary[planet] != 'COM':
+        planet = orbits_dictionary[planet]
+        chain.append(planet)
+
+    chain.append('COM')
+    return chain
+
 
 def solve():
-    part1_answer = 0
+
     planet_list = []
 
     with open('input') as f: 
@@ -43,12 +77,15 @@ def solve():
             planet_list.append(line.strip('\n'))
             
         part1_answer = part1(planet_list)
-        print(part1_answer)
+        print(f'Part1: {part1_answer}')
+
+        part2_answer = part2(planet_list)
+        print(f'Part2: {part2_answer}')
 
 
 if __name__ == '__main__':
-    # orbits = ['COM)B','B)C','C)D','D)E','E)F','B)G','G)H','D)I','E)J','J)K','K)L']
+    # orbits = ['COM)B','B)C','C)D','D)E','E)F','B)G','G)H','D)I','E)J','J)K','K)L','K)YOU','I)SAN']
     # part1(orbits)
-    # print(part1(orbits))
+    # print(part2(orbits))
     solve()
     
